@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-deploy
+  labels:
+    app: student-deploy
+  namespace: studentapi  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student-deploy
+  template:
+    metadata:
+      labels:
+        app: student-deploy
+    spec:
+      containers:
+      - name: student-deploy
+        image: studentrestapi
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+          name: student-deploy
